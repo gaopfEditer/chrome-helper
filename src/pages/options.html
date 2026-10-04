@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>加密社交回复助手 - 设置</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>⚙️ 设置</h1>
+      <p class="subtitle">配置 LLM、反封禁策略和回复模板</p>
+    </header>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="llm">LLM 配置</button>
+      <button class="tab-btn" data-tab="antiban">反封禁设置</button>
+      <button class="tab-btn" data-tab="templates">回复模板</button>
+      <button class="tab-btn" data-tab="platforms">平台选择器</button>
+      <button class="tab-btn" data-tab="targets">目标用户</button>
+    </div>
+
+    <div id="llm" class="tab-content active">
+      <h2>🤖 LLM API 配置</h2>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="llmEnabled"> 启用 LLM 生成回复
+        </label>
+      </div>
+      <div class="form-group">
+        <label>API 基础 URL</label>
+        <input type="text" id="llmBaseUrl" placeholder="https://api.openai.com/v1">
+      </div>
+      <div class="form-group">
+        <label>API Key</label>
+        <input type="password" id="llmApiKey" placeholder="sk-...">
+      </div>
+      <div class="form-group">
+        <label>模型</label>
+        <input type="text" id="llmModel" placeholder="gpt-3.5-turbo">
+      </div>
+      <div class="form-group">
+        <label>系统提示词</label>
+        <textarea id="llmSystemPrompt" rows="4" placeholder="你是一个专业的加密货币社区成员..."></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>最大 Token 数</label>
+          <input type="number" id="llmMaxTokens" min="50" max="500">
+        </div>
+        <div class="form-group">
+          <label>Temperature</label>
+          <input type="number" id="llmTemperature" min="0" max="2" step="0.1">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>回复语言</label>
+          <select id="llmReplyLanguage">
+            <option value="zh-CN">简体中文</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>回复语气</label>
+          <select id="llmReplyTone">
+            <option value="friendly">友好</option>
+            <option value="professional">专业</option>
+            <option value="casual">轻松</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div id="antiban" class="tab-content">
+      <h2>🛡️ 反封禁策略</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label>最小延迟（秒）</label>
+          <input type="number" id="minDelay" min="10" max="300">
+        </div>
+        <div class="form-group">
+          <label>最大延迟（秒）</label>
+          <input type="number" id="maxDelay" min="30" max="600">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>连续回复次数后暂停</label>
+          <input type="number" id="pauseAfterReplies" min="1" max="20">
+        </div>
+        <div class="form-group">
+          <label>暂停时长（秒）</label>
+          <input type="number" id="pauseDuration" min="60" max="1800">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>每小时回复上限</label>
+          <input type="number" id="maxRepliesPerHour" min="1" max="100">
+        </div>
+        <div class="form-group">
+          <label>每日回复上限</label>
+          <input type="number" id="maxRepliesPerDay" min="1" max="500">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>每个用户每日回复上限</label>
+        <input type="number" id="maxRepliesPerUserPerDay" min="1" max="20">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>活跃时段开始</label>
+          <input type="time" id="activeHoursStart">
+        </div>
+        <div class="form-group">
+          <label>活跃时段结束</label>
+          <input type="time" id="activeHoursEnd">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>时区</label>
+        <input type="text" id="timezone" placeholder="Asia/Shanghai">
+      </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="checkReplyVariation"> 检查回复内容差异
+        </label>
+      </div>
+      <div class="form-group">
+        <label>最小差异阈值</label>
+        <input type="number" id="minVariationThreshold" min="0.1" max="1" step="0.1">
+      </div>
+      <h3 style="margin-top:24px;margin-bottom:12px;">抓取调试</h3>
+      <div class="form-group">
+        <label>资料页抓取超时（秒）</label>
+        <input type="number" id="fetchTimeoutSec" min="15" max="120" value="45">
+      </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="keepFetchTabOpen"> 抓取/发送后保留标签页（便于调试 DOM）
+        </label>
+      </div>
+    </div>
+
+    <div id="templates" class="tab-content">
+      <h2>📝 回复模板</h2>
+      <p class="info">当 LLM 未启用时，将使用这些模板生成回复。可用变量：{{author}}</p>
+      <div id="templatesList"></div>
+      <button id="addTemplate" class="btn btn-secondary">➕ 添加模板</button>
+    </div>
+
+    <div id="platforms" class="tab-content">
+      <h2>🎯 平台选择器配置</h2>
+      <p class="info">当网站更新 HTML 结构时，可以在这里更新选择器</p>
+      <div class="platform-selector">
+        <label>选择平台：</label>
+        <select id="platformSelect">
+          <option value="binance">币安广场</option>
+          <option value="okx">OKX</option>
+          <option value="gate">Gate</option>
+        </select>
+      </div>
+      <div id="selectorsEditor">
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="debugMode"> 调试模式（在控制台显示选择器日志）
+          </label>
+        </div>
+        <div id="selectorsList"></div>
+      </div>
+    </div>
+
+    <div id="targets" class="tab-content">
+      <h2>👥 目标用户管理</h2>
+      <div class="actions">
+        <button id="addTarget" class="btn btn-primary">➕ 添加目标用户</button>
+        <button id="importTargets" class="btn btn-secondary">📥 导入</button>
+        <button id="exportTargets" class="btn btn-secondary">📤 导出</button>
+      </div>
+      <div id="targetsList"></div>
+    </div>
+
+    <div class="footer">
+      <button id="saveSettings" class="btn btn-primary">💾 保存设置</button>
+      <button id="resetSettings" class="btn btn-secondary">🔄 重置为默认</button>
+      <div id="statusMessage"></div>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

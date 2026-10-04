@@ -1,0 +1,28 @@
+{
+  "name": "crypto-social-reply-assistant",
+  "version": "1.0.1",
+  "description": "加密货币社交平台智能回复助手 - 支持币安广场、OKX、Gate",
+  "private": true,
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development --watch",
+    "test": "jest",
+    "test:e2e": "npm run build && node test/e2e-mock.test.js",
+    "lint": "eslint src/**/*.ts"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.254",
+    "@types/jest": "^29.5.8",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "eslint": "^8.53.0",
+    "jest": "^29.7.0",
+    "playwright": "^1.63.0",
+    "ts-jest": "^29.1.1",
+    "ts-loader": "^9.5.0",
+    "typescript": "^5.2.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  }
+}

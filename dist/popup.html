@@ -1,0 +1,41 @@
+<!doctype html><html lang=zh-CN><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1.0"><title>加密社交回复助手</title><link rel=stylesheet href=popup.css></head><body>
+  <div class=popup-container>
+    <header>
+      <h1>💬 回复助手</h1>
+    </header>
+
+    <div class=status-section>
+      <div class=status-item>
+        <span class=status-label>队列状态：</span>
+        <span id=queueStatus class=status-value>-</span>
+      </div>
+      <div class=status-item>
+        <span class=status-label>待发送：</span>
+        <span id=pendingCount class=status-value>0</span>
+      </div>
+      <div class=status-item>
+        <span class=status-label>已发送（今日）：</span>
+        <span id=sentToday class=status-value>0</span>
+      </div>
+    </div>
+
+    <div class=quick-actions>
+      <button id=openReview class="btn btn-primary">📋 审核回复</button>
+      <button id=openOptions class="btn btn-secondary">⚙️ 设置</button>
+    </div>
+
+    <div class=queue-controls>
+      <button id=startQueue class="btn btn-success">▶️ 开始</button>
+      <button id=pauseQueue class="btn btn-warning">⏸️ 暂停</button>
+      <button id=stopQueue class="btn btn-danger">⏹️ 停止</button>
+    </div>
+
+    <footer>
+      <p>v1.0.0 | 加密社交回复助手</p>
+    </footer>
+  </div>
+
+  <script src=popup.js></script>
+
+
+</body></html>

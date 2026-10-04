@@ -1,0 +1,59 @@
+{
+  "manifest_version": 3,
+  "name": "加密社交回复助手",
+  "version": "1.0.1",
+  "description": "智能回复币安广场、OKX、Gate 平台帖子的 Chrome 扩展",
+  "permissions": [
+    "storage",
+    "alarms",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://*.binance.com/*",
+    "https://*.okx.com/*",
+    "https://*.gate.com/*",
+    "https://*.gate.io/*",
+    "http://127.0.0.1:8765/*",
+    "http://localhost:8765/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.binance.com/*/square*",
+        "http://127.0.0.1:8765/*",
+        "http://localhost:8765/*"
+      ],
+      "js": ["content-binance.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://*.okx.com/*"],
+      "js": ["content-okx.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://*.gate.com/*", "https://*.gate.io/*"],
+      "js": ["content-gate.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
