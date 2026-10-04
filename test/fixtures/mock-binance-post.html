@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Mock Binance Post</title>
+</head>
+<body>
+  <div class="card-content-box">
+    <div class="feed-content-text" id="post-body">Mock 帖子详情页内容</div>
+  </div>
+  <button type="button" id="mock-reply-btn" class="bn-button bn-button__primary">回复</button>
+  <textarea id="mock-reply-input" style="display:none;width:100%;height:80px;margin-top:8px;"></textarea>
+  <button type="button" id="mock-submit-btn" style="display:none;margin-top:8px;" class="bn-button bn-button__primary">发送</button>
+  <div id="mock-comments" class="comment-list" style="margin-top:16px;"></div>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id') || 'mock-post-001';
+    document.getElementById('post-body').textContent = 'Mock 帖子 ' + id;
+
+    const btn = document.getElementById('mock-reply-btn');
+    const input = document.getElementById('mock-reply-input');
+    const submit = document.getElementById('mock-submit-btn');
+    btn.addEventListener('click', () => {
+      input.style.display = 'block';
+      submit.style.display = 'inline-block';
+      input.focus();
+    });
+    submit.addEventListener('click', () => {
+      const text = input.value.trim();
+      if (!text) return;
+      const el = document.createElement('div');
+      el.className = 'comment-item reply';
+      el.textContent = text;
+      document.getElementById('mock-comments').appendChild(el);
+      input.value = '';
+    });
+  </script>
+</body>
+</html>
